@@ -34,7 +34,7 @@
                 android:padding="12dp"
                 android:contentDescription="@string/content_description_crop_ratio_item"
                 android:layout_gravity="center_vertical"
-                android:tint="@color/colorWhite"
+                app:tint="@color/colorWhite"
                 app:imageResource="@{ratio.MIcon}"
                 tools:src="@drawable/ic_crop_rotate_black" />
 
