@@ -14,7 +14,6 @@
     <string name="content_description_editor_redo">Editor Redo Button</string>
 
     <!-- TextView Strings-->
-    <string name="str_pic_editor">PicEditor Demo</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_done">Done</string>
     <string name="str_add_caption">Add a caption…</string>

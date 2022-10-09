@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="content_description_rotate">Tombol Putar</string>
+    <string name="content_description_editor_back">Tombol Kembali Editor</string>
+    <string name="content_description_editor_delete">Tombol Hapus Editor</string>
+    <string name="content_description_editor_crop">Tombol Pangkas Editor</string>
+    <string name="content_description_editor_text">Tombol Teks Editor</string>
+    <string name="content_description_editor_draw">Tombol Gambar Editor</string>
+    <string name="content_description_crop_ratio_item">Tombol Rasio Pangkas Editor</string>
+    <string name="content_description_editor_thumbnail">Gambar Kecil Media Editor</string>
+    <string name="content_description_editor_undo">Tombol Batal Editor</string>
+    <string name="content_description_editor_redo">Tombol Ulangi Editor</string>
+    <string name="str_cancel">Batal</string>
+    <string name="str_done">Selesai</string>
+    <string name="str_add_caption">Tambahkan Keterangan....</string>
+</resources>
