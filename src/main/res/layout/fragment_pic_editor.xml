@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="options"
+            type="com.appexecutors.piceditor.EditOptions" />
+
+        <variable
+            name="fragment"
+            type="com.appexecutors.piceditor.PicEditorFragment" />
+
+        <variable
+            name="mode"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack"
+        tools:context=".PicEditorFragment">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlack70"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_back"
+                style="@style/EditorImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_editor_back"
+                android:onClick="@{() -> fragment.onBackPress()}"
+                android:src="@drawable/ic_arrow_back_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal"
+                android:visibility="@{mode == 1 ? View.VISIBLE: View.GONE}"
+                app:layout_constraintStart_toEndOf="@+id/image_view_back"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_view_undo"
+                    style="@style/EditorImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description_editor_undo"
+                    android:onClick="@{()-> fragment.undoRedo(1)}"
+                    android:src="@drawable/ic_undo_black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_back"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/image_view_redo"
+                    style="@style/EditorImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description_editor_redo"
+                    android:onClick="@{()-> fragment.undoRedo(2)}"
+                    android:src="@drawable/ic_redo_black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_undo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/image_view_delete"
+                style="@style/EditorImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_editor_delete"
+                android:onClick="@{() -> fragment.deleteImage()}"
+                android:src="@drawable/ic_delete_black"
+                android:visibility="@{options.showDeleteOption &amp;&amp; mode == 1 ? View.VISIBLE: View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_crop_rotate"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_view_crop_rotate"
+                style="@style/EditorImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_editor_crop"
+                android:onClick="@{() -> fragment.cropImage()}"
+                android:src="@drawable/ic_crop_rotate_black"
+                android:visibility="@{options.showCropOption &amp;&amp; mode == 1 ? View.VISIBLE: View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_text"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_view_text"
+                style="@style/EditorImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_editor_text"
+                android:labelFor="@+id/edit_text"
+                android:onClick="@{() -> fragment.addTextOver()}"
+                android:src="@drawable/ic_text_black"
+                android:visibility="@{options.showTextOption &amp;&amp; mode == 1 ? View.VISIBLE: View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_draw"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_view_draw"
+                style="@style/EditorImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_editor_draw"
+                android:onClick="@{() -> fragment.startBrush()}"
+                android:src="@drawable/ic_mode_edit_black"
+                android:visibility="@{options.showDrawOption &amp;&amp; mode == 1 ? View.VISIBLE: View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_media"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@drawable/background_black_alpha"
+            android:orientation="horizontal"
+            android:visibility="@{options.showThumbnail ? View.VISIBLE: View.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorBlack70"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_layout_toolbar">
+
+            <EditText
+                android:id="@+id/edit_text"
+                style="@style/TextEditorEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints=""
+                android:background="@null"
+                android:gravity="center|top"
+                android:inputType="textMultiLine"
+                android:paddingTop="32dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/add_text_done_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/background_transparent_white_border"
+                android:onClick="@{() -> fragment.textDone()}"
+                android:padding="10dp"
+                android:text="@string/str_done"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view_media">
+
+
+            <ImageView
+                android:id="@+id/image_view_add_more"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/background_black_alpha"
+                android:contentDescription="@string/content_description_editor_delete"
+                android:onClick="@{() -> fragment.addMore()}"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:src="@drawable/ic_photo_black"
+                app:tint="@color/colorWhite"
+                android:visibility="@{options.allowAddingImages ? View.VISIBLE: View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_text_caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/edit_text_caption" />
+
+            <EditText
+                android:id="@+id/edit_text_caption"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="null"
+                android:background="@drawable/background_black_alpha"
+                android:gravity="center_vertical"
+                android:hint="@string/str_add_caption"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="3"
+                android:minHeight="40dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="68dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:visibility="@{options.showCaption? View.VISIBLE: View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_view_add_more" />
+
+            <View
+                android:id="@+id/vertical_line"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorWhite"
+                android:visibility="@{options.allowAddingImages ? View.VISIBLE: View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_text_caption"
+                app:layout_constraintStart_toStartOf="@+id/edit_text_caption"
+                app:layout_constraintTop_toTopOf="@+id/edit_text_caption" />
+
+            <View
+                android:id="@+id/view_anchor"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintBottom_toTopOf="@+id/edit_text_caption" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_select"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:elevation="8dp"
+                android:onClick="@{()-> fragment.editDone()}"
+                android:src="@drawable/ic_check_black"
+                app:borderWidth="0dp"
+                app:fabCustomSize="48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view_anchor"
+                app:layout_constraintEnd_toEndOf="@+id/view_anchor"
+                app:layout_constraintTop_toTopOf="@+id/view_anchor"
+                app:maxImageSize="20dp"
+                app:tint="@color/colorWhite" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.github.veritas1.verticalslidecolorpicker.VerticalSlideColorPicker
+            android:id="@+id/color_picker"
+            android:layout_width="20dp"
+            android:layout_height="256dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_layout_toolbar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_progress"
+            android:visibility="gone"
+            android:background="@drawable/background_black_alpha"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
