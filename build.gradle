@@ -2,8 +2,22 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 //apply plugin: 'com.kezong.fat-aar'
 //apply plugin: "com.mobbeel.plugin"
+
+buildscript {
+    ext.kotlin_version = '1.6.21'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
+    }
+}
 
 android {
     compileSdkVersion 30
